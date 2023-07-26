@@ -1,0 +1,20 @@
+
+version: 2
+
+models:
+  - name: brt_info
+    description: "dbt model to extract Id, position and speed from brt data"
+    columns:
+      - name: codigo_onibus
+        description: "ID for each brt, Each bus must have an unique ID"
+        tests:
+          - not_null
+
+      - name: latitude
+        description: "Latitude value at the collect"
+
+      - name: longitude
+        description: "Longitude value at the collect"
+
+      - name: velocidade
+        description: "Speed at the collect"

@@ -1,7 +1,5 @@
 # Desafio de Data Engineer - EMD
 
-Repositório de instrução para o desafio técnico para vaga de Pessoa Engenheira de Dados no Escritório de Dados do Rio de Janeiro
-
 ## Descrição do desafio
 
 Neste desafio você deverá capturar, estruturar, armazenar e transformar dados de uma API instantânea. A API consiste nos dados de GPS do BRT que são gerados na hora da consulta com o último sinal transmitido por cada veículo.
@@ -10,21 +8,58 @@ Para o desafio, será necessário construir uma pipeline que captura os dados mi
 
 A pipeline deverá ser construída subindo uma instância local do Prefect (em Python). Utilize a versão *0.15.9* do Prefect.
 
-## O que iremos avaliar
+## Solução proposta
+ Foi criado um pipeline de dados que faz uma consulta a cada minuto a API de GPS do BRT e gera um arquivo `.json` com a data que foi realizada a consulta e as informações coletadas. A cada 10 arquivos `.json` gerados (representando 10 minutos de dados capturados) será gerado um arquivo `.csv` contendo as informações agregadas. Esse arquivo `.csv` então é carregado numa tabela em um banco de dados PostgreSQL inicializado localmente numa tabela chamada `raw.tb_brt_gps`, e por fim, uma tabela derivada é gerada usando o DBT com o nome `raw.brt_info` 
 
-- Completude: A solução proposta atende a todos os requisitos do desafio?
-- Simplicidade: A solução proposta é simples e direta? É fácil de entender e trabalhar?
-- Organização: A solução proposta é organizada e bem documentada? É fácil de navegar e encontrar o que se procura?
-- Criatividade: A solução proposta é criativa? Apresenta uma abordagem inovadora para o problema proposto?
-- Boas práticas: A solução proposta segue boas práticas de Python, Git, Docker, etc.?
 
-## Atenção
+## Estrutura do projeto
+   
+- `db/` - Contém todas as informações referente a base de dados e configuração do dbt;
+  - `brt_data/` - Contém todos os arquivos relacionados ao dbt
+  - `output/` - Diretório onde está armazenado as saídas dos arquivos gerados pela pipeline;
+  - `init_db.sql` - Arquivo de inicialização da tabela onde serão armazenados os dados em SQL
+  - `docker-compose.yml` - Arquivo de inicialização da instancia docker para o postgres
+- `pipeline/` - Contém os arquivos relacionados a execução do pipeline pelo Prefect
+  - `flow.py` - Declaração dos flows;
+  - `schedules.py` - Declaração dos schedules;
+  - `tasks.py` - Declaração das tasks;
+  - `constants.py` - Declaração dos valores constantes para o projeto;
 
-- A solução desse desafio deve ser publicada em um fork deste repositório no GitHub.
-- O link do repositório deve ser enviado até às 23:59, horário de Brasília, do dia 26 de julho de 2023 (quarta-feira) para o e-mail utilizado para contato com o assunto "Desafio Data Engineer - EMD".
-- Você deve ser capaz de apresentar sua solução, explicando como a idealizou, caso seja aprovado(a) para a próxima etapa.
 
-## Links de referência / utilidades
+## Configuração do ambiente de execução
+    
+### Requisitos
+
+- Python 3.9.x
+- `pip`
+- GNU/Linux
+- `docker` e `docker-compose`
+
+### Inicialização do ambiente
+
+- Entre no diretório `db/`
+- Abra o terminal e execute o comando:
+```
+docker-compose up -d
+```
+- Verifique se a instância docker foi executada corretamente com o comando:
+```
+docker ps
+```
+
+## Executando a pipeline
+
+- (Opcional) Crie e ative um ambiente virtual usando venv
+- Instale as dependências definidas em `requirements.txt` com o comando:
+```
+pip install -r requirements.txt
+ ```
+- Execute o arquivo `main.py` na pasta raiz do projeto:
+```
+python main.py
+```
+
+## Links de referência
 
 - Documentação [Prefect](https://docs-v1.prefect.io/)
 - Documentação [DBT](https://docs.getdbt.com/docs/introduction)
@@ -35,9 +70,4 @@ A pipeline deverá ser construída subindo uma instância local do Prefect (em P
    BRT](https://dados.mobilidade.rio/gps/brt)
 - Repositório pipelines do [Escritorio de Dados](https://github.com/prefeitura-rio/pipelines)
 - Repositório de modelos DBT do [Escritorio de Dados](https://github.com/prefeitura-rio/queries-datario)
-
-
-## Dúvidas?
-
-Fale conosco pelo e-mail que foi utilizado para o envio desse desafio.
 
