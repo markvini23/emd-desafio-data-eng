@@ -34,6 +34,7 @@ A pipeline deverá ser construída subindo uma instância local do Prefect (em P
 - `pip`
 - GNU/Linux
 - `docker` e `docker-compose`
+- `dbt-postgres`
 
 ### Inicialização do ambiente
 
