@@ -9,7 +9,13 @@ Para o desafio, será necessário construir uma pipeline que captura os dados mi
 A pipeline deverá ser construída subindo uma instância local do Prefect (em Python). Utilize a versão *0.15.9* do Prefect.
 
 ## Solução proposta
- Foi criado um pipeline de dados que faz uma consulta a cada minuto a API de GPS do BRT e gera um arquivo `.json` com a data que foi realizada a consulta e as informações coletadas. A cada 10 arquivos `.json` gerados (representando 10 minutos de dados capturados) será gerado um arquivo `.csv` contendo as informações agregadas. Esse arquivo `.csv` então é carregado numa tabela em um banco de dados PostgreSQL inicializado localmente numa tabela chamada `raw.tb_brt_gps`, e por fim, uma tabela derivada é gerada usando o DBT com o nome `raw.brt_info` 
+ Foi criado um pipeline de dados que faz uma consulta a cada minuto a
+ API de GPS do BRT e gera um arquivo `.json` com a data que foi realizada a 
+ consulta e as informações coletadas. A cada 10 arquivos `.json` gerados
+ (representando 10 minutos de dados capturados) será gerado um arquivo `.csv` 
+ contendo as informações agregadas. Esse arquivo `.csv` então é
+ carregado numa tabela em um banco de dados PostgreSQL inicializado localmente
+ na tabela chamada `raw.tb_brt_gps`, e por fim, uma tabela derivada é gerada usando o DBT com o nome `raw.brt_info` 
 
 
 ## Estrutura do projeto

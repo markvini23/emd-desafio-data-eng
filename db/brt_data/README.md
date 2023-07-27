@@ -1,15 +1,18 @@
-Welcome to your new dbt project!
+# Modelo DBT brt_data 
 
-### Using the starter project
+Diretório com os arquivos referente a uma instancia local do DBT
 
-Try running the following commands:
-- dbt run
-- dbt test
-
-
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+- Na pasta `models/` contém o arquivo `.sql` referente a criação do modelo de tabela derivada
+- Os arquivos `profiles.yml` e `dbt_project.yml` contém as informação necessárias de configuração e execução do modelo
+- Para executar a instância local do projeto, execute o comando:
+```
+dbt run --profile-dir .
+```
+- Para gerar a documentação do modelo execute o comando: 
+```
+dbt docs generate
+```
+- Para inicializar um webserver na porta 8080 e servir a documentação localmente, execute o comando:
+```
+dbt docs serve --profiles-dir .
+```
